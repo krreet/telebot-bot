@@ -1,6 +1,8 @@
 const TeleBot = require('telebot');
-const translate = require('google-translate-api');
+//const translate = require('google-translate-api');
+const mongoose = require('mongoose');
 
+const User = require('./models/user')
 const {
     TELEBOT_TOKEN: TOKEN,
     TELEBOT_URL: URL,
@@ -14,39 +16,46 @@ const TRANSLATE_ICONS = {
     es: '🇪🇸', it: '🇮🇹', nl: '🇳🇱'
 };
 
-const bot = new TeleBot({
+const boto = new TeleBot({
     token: TOKEN,
     url: URL,
     host: HOST,
     port: PORT
 });
 
-bot.on('text', (msg) => {
+const bot = new TeleBot({
+    token: '535887838:AAGG2r7Ji6l8PuYBxamkDL65EsSgfnUgM10',
+  
+});
+mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' , {
+    useMongoClient: true
+});
 
-    const text = msg.text;
-    const chatId = msg.chat.id;
-    const messageId = msg.message_id;
 
-    console.log('+', chatId, messageId, text);
+bot.on(/^\/(.+)$/, (msg, props) => {
+    const text = props.match[1];
+let replymessage = 'some error occured';
+    User.findOne({ _id : text }).exec().then(doc => {
 
-    return translate(text, {to: TRANSLATE_TO}).then((response) => {
+        if(doc.ethaddress){
 
-        const translatedText = response.text;
-        const languageId = response.from.language.iso;
+            if(doc.points === 0){
 
-        if (languageId !== TRANSLATE_TO) {
+                User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);replymessage = `Congratulations you have earned 200`;  }).catch(err => console.log(err));
 
-            const languageIcon = TRANSLATE_ICONS[languageId] || '';
-
-            return bot.sendMessage(chatId, `${languageIcon} ${translatedText}`, {
-                reply: messageId,
-                preview: false
-            });
-            
+            }else if(doc.points > 0){
+               let invited = doc.points - 1;
+                let earned = 200 + 120 * (invited);
+replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
+            }
         }
 
-    });
 
+    }).catch(err => { console.log(err) ;
+  
+  });
+    
+    return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
 });
 
 bot.start();
