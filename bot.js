@@ -16,20 +16,11 @@ const TRANSLATE_ICONS = {
     es: '🇪🇸', it: '🇮🇹', nl: '🇳🇱'
 };
 
-const boto = new TeleBot({
-    token: TOKEN,
-    url: URL,
-    host: HOST,
-    port: PORT
-});
-
 const bot = new TeleBot({
-    token: '535887838:AAGG2r7Ji6l8PuYBxamkDL65EsSgfnUgM10',
+    token: '535887838:AAGG2r7Ji6l8PuYBxamkDL65EsSgfnUgM10'
   
 });
-mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' , {
-    useMongoClient: true
-});
+mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' );
 
 
 bot.on(/^\/(.+)$/, (msg, props) => {
@@ -41,7 +32,9 @@ let replymessage = 'some error occured';
 
             if(doc.points === 0){
 
-                User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);replymessage = `Congratulations you have earned 200`;  }).catch(err => console.log(err));
+                User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);replymessage = `Congratulations you have earned 200`;  }).catch(err => {console.log(err);
+                    replymessage = `This code is not valid`;
+                });
 
             }else if(doc.points > 0){
                let invited = doc.points - 1;
@@ -55,7 +48,7 @@ replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
   
   });
     
-    return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+    return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
 });
 
-bot.start();
+bot.connect();
