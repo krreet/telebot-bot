@@ -25,7 +25,7 @@ mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' );
 
 bot.on(/^\/(.+)$/, (msg, props) => {
     const text = props.match[1];
-let replymessage = 'some error occured';
+let replymessage = 'This code is not valid';
     User.findOne({ _id : text }).exec().then(doc => {
 
         if(doc.ethaddress){
