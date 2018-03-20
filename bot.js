@@ -16,8 +16,15 @@ const TRANSLATE_ICONS = {
     es: '🇪🇸', it: '🇮🇹', nl: '🇳🇱'
 };
 
+
+let caftoken = '535887838:AAGG2r7Ji6l8PuYBxamkDL65EsSgfnUgM10';
+
+if(process.env.CAFB)
+    caftoken = process.env.CAFB;
+
+
 const bot = new TeleBot({
-    token: '535887838:AAGG2r7Ji6l8PuYBxamkDL65EsSgfnUgM10'
+    token: caftoken
   
 });
 mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' );
