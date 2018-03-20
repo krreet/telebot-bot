@@ -32,23 +32,32 @@ let replymessage = 'This code is not valid';
 
             if(doc.points === 0){
 
-                User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);replymessage = `Congratulations you have earned 200`;  }).catch(err => {console.log(err);
+                User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);replymessage = `Congratulations you have earned 200`; 
+                return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+            
+            
+            }).catch(err => {console.log(err);
                     replymessage = `This code is not valid`;
+
+                    return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
                 });
 
             }else if(doc.points > 0){
                let invited = doc.points - 1;
                 let earned = 200 + 120 * (invited);
 replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
+
+
+return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
             }
         }
 
 
-    }).catch(err => { console.log(err) ;
+    }).catch(err => {  return  bot.sendMessage(msg.from.id, 'user doesnt exists', { replyToMessage: msg.message_id });   console.log(err) ;
   
   });
     
-    return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+   
 });
 
 bot.connect();
