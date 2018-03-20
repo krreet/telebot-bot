@@ -37,9 +37,9 @@ let replymessage = 'This code is not valid';
 
         if(doc.ethaddress){
 
-            if(+doc.points == 0){
+            if(doc.points == 0){
 
-                User.update( { _id : text } , { $set : { points : '1' } } ).exec().then( res => { console.log(res);
+                User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);
                     
                     
                     replymessage = `your code: ${text} is activated successfully, send shared link to your friend right away to get your bonus. Make sure you have subscribed the channel (@officialsapien) to receive your tokens.
@@ -59,7 +59,7 @@ let replymessage = 'This code is not valid';
                 });
 
             }else if(+doc.points > 0){
-               let invited = +doc.points - 1;
+               let invited = doc.points - 1;
                 let earned = 200 + 120 * (invited);
 replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
 
