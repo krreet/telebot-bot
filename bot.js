@@ -35,7 +35,7 @@ bot.on(/^\/(.+)$/, async function (msg, props){
 let replymessage = 'This code is not valid';
 if(!mongoose.Types.ObjectId.isValid(text)){
 
-    return await bot.sendMessage('@sapienglobal', "code not valid", { replyToMessage: msg.message_id });
+    return  bot.sendMessage('@sapienglobal', "code not valid", { replyToMessage: msg.message_id });
 
 }
 
