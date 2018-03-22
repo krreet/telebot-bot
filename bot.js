@@ -46,7 +46,7 @@ let replymessage = 'This code is not valid';
 
                 你的验证码：${text}，已激活成功！立刻发送分享链接给朋友获得空投奖励！请确保已经关注频道（@officialsapien）以正常获得空投奖励。
                 
-                Your share link （你的分享链接）：https://sapien-network.herokuapp.com/?r=${text}`; 
+                Your share link （你的分享链接）：https://sapiennetwork.herokuapp.com/?r=${text}`; 
 
 
                 return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
