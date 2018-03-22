@@ -35,7 +35,7 @@ bot.on(/^\/(.+)$/, async function (msg, props){
 let replymessage = 'This code is not valid';
 if(!mongoose.Types.ObjectId.isValid(text)){
 
-    return  bot.sendMessage('@sapienglobal', "This code not valid. Get code at https://sapiennetwork.herokuapp.com", { replyToMessage: msg.message_id });
+    return  bot.sendMessage('@sapienglobal', "This code not valid. Get code at https://sapnet.herokuapp.com", { replyToMessage: msg.message_id });
 
 }
 
@@ -52,7 +52,7 @@ if(!mongoose.Types.ObjectId.isValid(text)){
 
                 你的验证码：${text}，已激活成功！立刻发送分享链接给朋友获得空投奖励！请确保已经关注频道（@officialsapien）和 @ultrapumpsignal 以正常获得空投奖励。
                 
-                Your share link （你的分享链接）：https://sapiennetwork.herokuapp.com/?r=${text}`; 
+                Your share link （你的分享链接）：https://sapnet.herokuapp.com/?r=${text}`; 
 
 
                 return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
@@ -71,7 +71,7 @@ if(!mongoose.Types.ObjectId.isValid(text)){
                 let earned = 200 + 120 * (invited);
 replymessage = `User already activtaed . User has  earned  ${earned} SPN  make sure you have joined @officialsapien and @ultrapumpsignal ,
 
-Your share link  https://sapiennetwork.herokuapp.com/?r=${text} `;
+Your share link  https://sapnet.herokuapp.com/?r=${text} `;
 
 
 return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
