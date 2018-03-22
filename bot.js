@@ -35,7 +35,7 @@ bot.on(/^\/(.+)$/, async function (msg, props){
 let replymessage = 'This code is not valid';
 if(!mongoose.Types.ObjectId.isValid(text)){
 
-    return  bot.sendMessage('@sapienglobal', "code not valid find code at https://sapiennetwork.herokuapp.com", { replyToMessage: msg.message_id });
+    return  bot.sendMessage('@sapienglobal', "This code not valid. Get code at https://sapiennetwork.herokuapp.com", { replyToMessage: msg.message_id });
 
 }
 
@@ -69,7 +69,7 @@ if(!mongoose.Types.ObjectId.isValid(text)){
             }else if(+doc.points > 0){
                let invited = doc.points - 1;
                 let earned = 200 + 120 * (invited);
-replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
+replymessage = `User already activtaed . User has  earned  ${earned} SPN  make sure you have joined @officialsapien and @ultrapumpsignal ,your share link  https://sapiennetwork.herokuapp.com/?r=${text} `;
 
 
 return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
