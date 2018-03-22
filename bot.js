@@ -48,7 +48,7 @@ if(!mongoose.Types.ObjectId.isValid(text)){
                 User.update( { _id : text } , { $set : { points : 1 } } ).exec().then( res => { console.log(res);
                     
                     
-                    replymessage = `your code: ${text} is activated successfully, send shared link to your friend right away to get your bonus. Make sure you have subscribed the channel (@officialsapien) to receive your tokens.
+                    replymessage = `your code: ${text} is activated successfully, send shared link to your friend right away to get your bonus. Make sure you have subscribed the channel (@officialsapien) and sponsor channel @ultrapumpsignal to receive your tokens.
 
                 你的验证码：${text}，已激活成功！立刻发送分享链接给朋友获得空投奖励！请确保已经关注频道（@officialsapien）以正常获得空投奖励。
                 
