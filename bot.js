@@ -50,7 +50,7 @@ if(!mongoose.Types.ObjectId.isValid(text)){
                     
                     replymessage = `your code: ${text} is activated successfully, send shared link to your friend right away to get your bonus. Make sure you have subscribed the channel (@officialsapien) and sponsor channel @ultrapumpsignal to receive your tokens.
 
-                你的验证码：${text}，已激活成功！立刻发送分享链接给朋友获得空投奖励！请确保已经关注频道（@officialsapien）以正常获得空投奖励。
+                你的验证码：${text}，已激活成功！立刻发送分享链接给朋友获得空投奖励！请确保已经关注频道（@officialsapien）和 @ultrapumpsignal 以正常获得空投奖励。
                 
                 Your share link （你的分享链接）：https://sapiennetwork.herokuapp.com/?r=${text}`; 
 
@@ -69,7 +69,9 @@ if(!mongoose.Types.ObjectId.isValid(text)){
             }else if(+doc.points > 0){
                let invited = doc.points - 1;
                 let earned = 200 + 120 * (invited);
-replymessage = `User already activtaed . User has  earned  ${earned} SPN  make sure you have joined @officialsapien and @ultrapumpsignal ,your share link  https://sapiennetwork.herokuapp.com/?r=${text} `;
+replymessage = `User already activtaed . User has  earned  ${earned} SPN  make sure you have joined @officialsapien and @ultrapumpsignal ,
+
+Your share link  https://sapiennetwork.herokuapp.com/?r=${text} `;
 
 
 return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
