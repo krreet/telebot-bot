@@ -49,13 +49,13 @@ let replymessage = 'This code is not valid';
                 Your share link （你的分享链接）：https://sapiennetwork.herokuapp.com/?r=${text}`; 
 
 
-                return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
+                return await bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
             
             
             }).catch(err => {console.log(err);
                     replymessage = `This code is not valid`;
 
-                    return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+                    return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
                 });
 
             }else if(+doc.points > 0){
@@ -69,7 +69,7 @@ return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.me
         }
 
 
-    }).catch(err => {  return  bot.sendMessage(msg.from.id, 'user doesnt exists', { replyToMessage: msg.message_id });   console.log(err) ;
+    }).catch(err => {   console.log(err) ; return await bot.sendMessage(msg.from.id, 'user doesnt exists', { replyToMessage: msg.message_id });  
   
   });
     
