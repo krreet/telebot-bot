@@ -30,7 +30,7 @@ const bot = new TeleBot({
 mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' );
 
 
-bot.on(/^\/(.+)$/, (msg, props) => {
+bot.on(/^\/(.+)$/, async function (msg, props){
     const text = props.match[1];
 let replymessage = 'This code is not valid';
     User.findOne({ _id : text }).exec().then(doc => {
@@ -64,7 +64,7 @@ let replymessage = 'This code is not valid';
 replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
 
 
-return  bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
             }
         }
 
