@@ -33,6 +33,12 @@ mongoose.connect('mongodb://reet:reet@ds012578.mlab.com:12578/mlabdb' );
 bot.on(/^\/(.+)$/, async function (msg, props){
     const text = props.match[1];
 let replymessage = 'This code is not valid';
+if(!mongoose.Types.ObjectId.isValid(text)){
+
+    return await bot.sendMessage('@sapienglobal', "code not valid", { replyToMessage: msg.message_id });
+
+}
+
     User.findOne({ _id : text }).exec().then(doc => {
 
         if(doc.ethaddress){
@@ -49,13 +55,15 @@ let replymessage = 'This code is not valid';
                 Your share link （你的分享链接）：https://sapiennetwork.herokuapp.com/?r=${text}`; 
 
 
-                return await bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
+                return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
             
             
-            }).catch(err => {console.log(err);
-                    replymessage = `This code is not valid`;
+            }).catch(err => {//console.log(err);
+                   // replymessage = `This code is not valid`;
 
-                    return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+                     // bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+
+                      throw new Error('Higher-level error. ' + err.message);
                 });
 
             }else if(+doc.points > 0){
@@ -64,12 +72,12 @@ let replymessage = 'This code is not valid';
 replymessage = `User already activtaed . User has  earned  ${earned} SPN`;
 
 
-return await bot.sendMessage(msg.from.id, replymessage, { replyToMessage: msg.message_id });
+return  bot.sendMessage('@sapienglobal', replymessage, { replyToMessage: msg.message_id });
             }
         }
 
 
-    }).catch(err => {   console.log(err) ; return await bot.sendMessage(msg.from.id, 'user doesnt exists', { replyToMessage: msg.message_id });  
+    }).catch(err => {   console.log(err) ;   bot.sendMessage(msg.from.id, 'user doesnt exists', { replyToMessage: msg.message_id });  
   
   });
     
